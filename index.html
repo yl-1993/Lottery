@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>iGeek Lottery</title>
+
+<!-- The following two lines are needed to include the Virtual Cube in a web-page. 
+-->
+
+<script type="text/javascript" src="lib/virtualrubik.js"></script>
+<script type="text/javascript">includeVirtualRubik("lib");</script>
+<script type="text/javascript">
+  var isLottery = false;
+  var isRunning;
+  function iLottery(){
+    isLottery = !isLottery;
+    if(isLottery)
+    {
+      document.getElementById('canvas1').virtualrubik.lottery();
+      isRunning = window.setInterval(function(){
+        document.getElementById('canvas1').virtualrubik.lottery();
+      },4000); // it take about 4 secs to transform 10 times
+    }
+    else
+    {
+      window.clearInterval(isRunning);
+      isRunning = 0;
+    }
+  }
+
+  function iRestart(){
+    document.getElementById('canvas1').virtualrubik.reset();
+    // clear timer
+    if(isRunning)
+      isRunning=window.clearInterval(isRunning);
+    if(isLottery)
+      isLottery=!isLottery;
+  }
+
+  document.onkeydown=function(event){
+    var e = event || window.event || arguments.callee.caller.arguments[0];
+    if(e && e.keyCode==13){ // Enter 
+      iLottery();
+    }
+    if(e && e.keyCode==32){ // Esc
+      iRestart();
+    }
+  };
+</script>
+
+</head>
+
+<!-- The onLoad-script is needed to attach the Virtual Cube to all canvases with
+     class "virtualrubik". 
+-->
+
+<body onLoad="attachVirtualRubik(document.getElementById('canvas1'),configCubes);">
+
+<!-- This is an example of a Rubik's Cube with a stickers image. 
+     The alternative image is displayed in the parent DIV-Element, when the browser does not support WebGL. 
+-->
+<div style="text-align:center;">
+<canvas id="canvas1" class="virtualrubik" style="border: 1px solid" width="640" height="580"
+        stickersImage="images/rubikscube.png"
+        altImage="images/rubikscube.png"
+></canvas>
+</div>
+
+<!-- The following controls interact with the Rubik's Cube in "canvas1". -->
+<div style="display:none;">
+  <button type="button" onclick="iRestart();">Restart</button>
+  <button type="button" onclick="iLottery()">Lottery</button>
+</div>
+
+
+</body>
+</html> 
