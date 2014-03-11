@@ -1,22 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- saved from url=(0056)http://2.axescanvas.sinaapp.com/LoveDemo/secondLove.html -->
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	
-	<style>
-	    body{
-	    	padding:0;
-	    	margin:0;
-	    	overflow: hidden;
-	    }
-		#cas{
-			display: block;
-			margin:auto;
-		}
-	</style>
-	<script>
+var startEndFlag=false;
+var startRunning=false;
+(function(){
 		var dr;
 		window.onload = function(){
-			canvas = document.getElementById("cas");
+			canvas = document.getElementById("canvas2");
 			ele = document.querySelectorAll(".ele");
 			context = canvas.getContext('2d');
 			canvas.width = window.innerWidth;
@@ -58,7 +45,15 @@
 					dots = getimgData();
 					initAnimate();
 				}
-				index < (ele.length-1) ? index++ : index=0;
+				index < (ele.length-1) ? index++ : startEndFlag=true;
+				if(startEndFlag && !startRunning){
+					startRunning=true;
+					attachVirtualRubik(document.getElementById('canvas1'),configCubes);
+					console.log(startEndFlag);
+				    document.getElementById('canvas1').style.display="block";
+ 					document.getElementById('canvas2').style.display="none";
+ 					pause=true;
+				}
 				// console.log(index)
 			}
 
@@ -218,24 +213,4 @@
 				context.restore();
 			}
 		}
-
-	</script>
-	<title>Lottery</title>
-</head>
-<body>
-	<div>
-		<canvas id="cas" width="1366" height="596" style="background-color:#000">浏览器不支持canvas</canvas>
-	</div>
-	<div style="display:none;">
-		<div class="ele" data-dr="3">
-			<img src="./images/logo.png" alt="">
-		</div>
-		<div class="ele">
-			iGeek
-		</div>
-		<div class="ele">
-			开始抽奖！
-		</div>
-	</div>
-
-</body></html>
+})();

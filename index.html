@@ -9,6 +9,7 @@
 
 <script type="text/javascript" src="lib/virtualrubik.js"></script>
 <script type="text/javascript">includeVirtualRubik("lib");</script>
+<script type="text/javascript" src="startLottery/startAnimate.js"></script>
 <script type="text/javascript">
   var isLottery = false;
   var isRunning;
@@ -54,23 +55,36 @@
      class "virtualrubik". 
 -->
 
-<body onLoad="attachVirtualRubik(document.getElementById('canvas1'),configCubes);">
+<body >
 
 <!-- This is an example of a Rubik's Cube with a stickers image. 
      The alternative image is displayed in the parent DIV-Element, when the browser does not support WebGL. 
 -->
 <div style="text-align:center;">
-<canvas id="canvas1" class="virtualrubik" style="border: 1px solid" width="640" height="580"
+<canvas id="canvas1" class="virtualrubik" style="border: 1px solid; display: none;" width="1366" height="580"
         stickersImage="images/rubikscube.png"
         altImage="images/rubikscube.png"
 ></canvas>
 </div>
+  <div>
+    <canvas id="canvas2" width="1366" height="596" style="background-color:#000">浏览器不支持canvas</canvas>
+  </div>
 
 <!-- The following controls interact with the Rubik's Cube in "canvas1". -->
 <div style="display:none;">
   <button type="button" onclick="iRestart();">Restart</button>
   <button type="button" onclick="iLottery()">Lottery</button>
 </div>
+
+<!-- The following controls interact in the start of the lottery "canvas2". -->
+  <div style="display:none;">
+    <div class="ele" data-dr="3">
+      <img src="startLottery/images/logo.png" alt="">
+    </div>
+    <div class="ele">
+      开始抽奖！
+    </div>
+  </div>
 
 
 </body>
