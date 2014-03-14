@@ -1,19 +1,104 @@
 (function(){
   var isLottery = false;
-  var isRunning;
+  var isRunning=0, isTextChange=0, runningInterval=0, stopingInterval=0;
+  var perRotationTime = 4000;
+  var textTimer = 0;
+  var textTimeInverval = 100;
+  var timerArray=[0];
+
+  function changeRunStatus(cmd){
+    if(cmd=="Run")
+    {
+      setRunningStatus();
+    }
+    else if(cmd=="Stop")
+    {
+      var dur = checkTextDuration();
+      if(dur>8*textTimeInverval){
+        window.setTimeout(function(){
+          localClearInterval();
+          setStopStatus();
+        },dur-8*textTimeInverval);
+      }
+      else{
+        localClearInterval();
+        setStopStatus();
+      }
+    }
+    else
+    {
+      document.getElementById('startButton').innerHTML="START";
+    }
+  }
+
+  function setTextTimer(){
+      textTimer=0;
+      isTextChange = window.setInterval(function(){
+        textTimer++;
+      },textTimeInverval);
+  }
+
+  function localClearInterval(){
+    window.clearInterval(isTextChange);
+    for(var i=0; i<timerArray.length; i++)
+      window.clearInterval(timerArray[i]);
+    isTextChange=0;
+    runningInterval=0;
+    stopingInterval=0;
+  }
+
+  function setRunningStatus(){
+    document.getElementById('startButton').style.color="black";
+    document.getElementById('startButton').innerHTML="RUNNING";
+  }
+
+  function setStopStatus(){
+    document.getElementById('startButton').style.color="black";
+    document.getElementById('startButton').innerHTML="STOP";
+  }
+
+  function setEndingStatus(){
+    document.getElementById('startButton').style.color="gray";
+  }
+
+  // check when to change the text (from 'running' to 'stop')
+  function checkTextDuration(){
+    window.clearInterval(isTextChange);
+    isTextChange=0;
+    var count = perRotationTime*2/textTimeInverval;
+    var remain = (count - textTimer)/2;
+    for(var i = 0; i < 2; i++)
+    {
+      //setTimeout("setRunningStatus()","textTimeInverval");
+      //setRunningStatus();
+      runningInterval = window.setInterval(function(){
+        setRunningStatus();
+      },textTimeInverval-30);
+      timerArray = timerArray.concat(runningInterval);
+      stopingInterval =  window.setInterval(function(){
+        setEndingStatus();
+      },textTimeInverval+30);
+      timerArray = timerArray.concat(stopingInterval);
+      console.log(stopingInterval);
+    }
+    return remain*textTimeInverval;
+  }
+
   function iLottery(){
     isLottery = !isLottery;
+    changeRunStatus("Run");
     if(isLottery)
     {
       document.getElementById('canvas1').virtualrubik.lottery();
       isRunning = window.setInterval(function(){
         document.getElementById('canvas1').virtualrubik.lottery();
-      },4000); // it take about 4 secs to transform 10 times
+        setTextTimer(); 
+      },perRotationTime); // it take about 4 secs to transform 10 times
     }
     else
     {
+      changeRunStatus("Stop");
       window.clearInterval(isRunning);
-      drawResFrame();
       isRunning = 0;
     }
   }
@@ -27,39 +112,7 @@
       isLottery=!isLottery;
   }
 
-  function getCanvasCtx(){
-    var canvas = document.getElementById("canvas1");
-    if (canvas.getContext) { //检测浏览器是否兼容
-      console.log(canvas);
-      var ctx = canvas.getContext("2d"); //你的canvas代码在这里
-      return ctx;
-    }
-    console.log('canvas is null');
-    return null;
-  }
 
-  function drawResFrame(){
-var canvas = document.getElementById("canvas1");
-              if (canvas == null)
-                  return false;
-              var context = canvas.getContext("2d");
-              //实践表明在不设施fillStyle下的默认fillStyle=black
-              context.fillRect(0, 0, 100, 100);
-              //实践表明在不设施strokeStyle下的默认strokeStyle=black
-              context.strokeRect(120, 0, 100, 100);
- 
-             //设置纯色
-             context.fillStyle = "red";
-             context.strokeStyle = "blue";
-             context.fillRect(0, 120, 100, 100);
-             context.strokeRect(120, 120, 100, 100);
- 
-             //设置透明度实践证明透明度值>0,<1值越低，越透明，值>=1时为纯色，值<=0时为完全透明
-             context.fillStyle = "rgba(255,0,0,0.2)";
-             context.strokeStyle = "rgba(255,0,0,0.2)";
-             context.fillRect(240,0 , 100, 100);
-             context.strokeRect(240, 120, 100, 100);
-  }
 
   document.onkeydown=function(event){
     var e = event || window.event || arguments.callee.caller.arguments[0];

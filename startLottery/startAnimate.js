@@ -1,4 +1,4 @@
-var isStartAnimation=true;
+var isStartAnimation=false;
 var startEndFlag=false;
 var startRunning=false;
 (function(){
@@ -7,9 +7,11 @@ var startRunning=false;
 			if(!isStartAnimation)
 			{
 				startRunning=true;
+
 				document.getElementById('canvas2').style.display="none";
 				attachVirtualRubik(document.getElementById('canvas1'),configCubes);
 				document.getElementById('canvas1').style.display="block";
+				document.getElementById('glasspane').style.display="block";
 				//console.log(startEndFlag);
 				index=0;
 				pause=true;
@@ -64,6 +66,7 @@ var startRunning=false;
  					document.getElementById('canvas2').style.display="none";
 					attachVirtualRubik(document.getElementById('canvas1'),configCubes);
 					document.getElementById('canvas1').style.display="block";
+					document.getElementById('glasspane').style.display="block";
 					//console.log(startEndFlag);
 					index=0;
  					pause=true;
@@ -197,7 +200,6 @@ var startRunning=false;
 					}
 				}
 			}
-			console.log(dots.length)
 			return dots;
 		}
 
