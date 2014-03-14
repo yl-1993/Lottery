@@ -1,4 +1,4 @@
-var isStartAnimation=false;
+var isStartAnimation=true;
 var startEndFlag=false;
 var startRunning=false;
 (function(){
@@ -6,15 +6,7 @@ var startRunning=false;
 		window.onload = function(){
 			if(!isStartAnimation)
 			{
-				startRunning=true;
-
-				document.getElementById('canvas2').style.display="none";
-				attachVirtualRubik(document.getElementById('canvas1'),configCubes);
-				document.getElementById('canvas1').style.display="block";
-				document.getElementById('glasspane').style.display="block";
-				//console.log(startEndFlag);
-				index=0;
-				pause=true;
+				startMagicCube();
 				return;
 			}
 			canvas = document.getElementById("canvas2");
@@ -62,16 +54,25 @@ var startRunning=false;
 				}
 				index < (ele.length-1) ? index++ : startEndFlag=true;
 				if(startEndFlag && !startRunning){
-					startRunning=true;
- 					document.getElementById('canvas2').style.display="none";
-					attachVirtualRubik(document.getElementById('canvas1'),configCubes);
-					document.getElementById('canvas1').style.display="block";
-					document.getElementById('glasspane').style.display="block";
-					//console.log(startEndFlag);
-					index=0;
- 					pause=true;
+					startMagicCube();
 				}
 				// console.log(index)
+			}
+
+
+			function startMagicCube(){
+				startRunning=true;
+				document.getElementById('canvas2').style.display="none";
+				attachVirtualRubik(document.getElementById('canvas1'),configCubes);
+				document.getElementById('canvas1').style.display="block";
+				document.getElementById('glasspane').style.display="block";
+				document.getElementById('res-frame').style.display="block";
+				document.getElementById('res-hundred').style.display="block";
+				document.getElementById('res-decade').style.display="block";
+				document.getElementById('res-unit').style.display="block";
+				//console.log(startEndFlag);
+				index=0;
+				pause=true;
 			}
 
 			function imgload(img , callback){
