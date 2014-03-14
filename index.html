@@ -6,12 +6,79 @@
 
 <!-- The following two lines are needed to include the Virtual Cube in a web-page. 
 -->
+  <style>
+      body{
+        padding:0;
+        margin:0;
+        overflow: hidden;
+        background-color: #000;
+      }
+    #canvas1{
+      display: block;
+      margin:auto;
+    }
+    #canvas2{
+      display: block;
+      margin:auto;
+    }
+    #canvas-wrap { position:relative } /* Make this a positioned parent */
+    #overlay{
+     position:absolute; 
+     top:20px; 
+     left:30px;
+   }
+  </style>
+        <style>
+         body {
+            background: #dddddd;
+         }
 
+         #glasspane {
+            position: absolute;
+            left: 50px;
+            top: 50px;
+            padding: 0px 20px 10px 10px;
+            background: rgba(255, 255, 255, 0.3);
+            border: thin solid rgba(0, 0, 0, 0.6);
+            color:# #eeeeee;
+            font-family: Droid Sans, Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            cursor: pointer;
+            -webkit-box-shadow: rgba(0,0,0,0.5) 5px 5px 20px;
+            -moz-box-shadow: rgba(0,0,0,0.5) 5px 5px 20px;
+            box-shadow: rgba(0,0,0,0.5) 5px 5px 20px;
+         }
+
+         #glasspane h2 {
+            font-weight: normal;
+         }
+
+         #glasspane .title {
+            font-size: 2em;
+            color:# rgba(255, 255, 0, 0.8);
+         }
+
+         #glasspane a:hover {
+            color:# yellow;
+         }
+
+         #glasspane a {
+            text-decoration: none;
+            color:# #cccccc;
+            font-size: 3.5em;
+         }
+
+         #glasspane p {
+            margin: 10px;
+            color:# rgba(65, 65, 220, 1.0);
+            font-size: 12pt;
+            font-family: Palatino, Arial, Helvetica, sans-serif;
+         }
+      </style>
 <script type="text/javascript" src="lib/virtualrubik.js"></script>
 <script type="text/javascript">includeVirtualRubik("lib");</script>
 <script type="text/javascript" src="startLottery/startAnimate.js"></script>
 <script type="text/javascript" src="js/lotteryControl.js"></script>
-
 </head>
 
 <!-- The onLoad-script is needed to attach the Virtual Cube to all canvases with
@@ -23,14 +90,22 @@
 <!-- This is an example of a Rubik's Cube with a stickers image. 
      The alternative image is displayed in the parent DIV-Element, when the browser does not support WebGL. 
 -->
-<div style="text-align:center;">
-<canvas id="canvas1" class="virtualrubik" style="border: 1px solid; display: none;" width="1366" height="580"
+
+
+
+<canvas id="canvas1" class="virtualrubik" style="border: 1px solid; display: none;background-color:#000;" width="1366" height="775"
         stickersImage="images/rubikscube.png"
-        altImage="images/rubikscube.png"
-></canvas>
-</div>
+        altImage="images/rubikscube.png">
+        <div id="overlay"></div>
+</canvas>
   <div>
-    <canvas id="canvas2" width="1366" height="596" style="background-color:#000">浏览器不支持canvas</canvas>
+    <canvas id="canvas2" width="1300" height="1000" style="background-color:#000"></canvas>
+  </div>
+
+  <div id='glasspane'>
+     <h2 class='title'>IGEEK LOTTERY</h2>
+     <p></p>
+     <a id='startButton'>Start</a>
   </div>
 
 <!-- The following controls interact with the Rubik's Cube in "canvas1". -->

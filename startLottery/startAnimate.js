@@ -1,8 +1,20 @@
+var isStartAnimation=true;
 var startEndFlag=false;
 var startRunning=false;
 (function(){
 		var dr;
 		window.onload = function(){
+			if(!isStartAnimation)
+			{
+				startRunning=true;
+				document.getElementById('canvas2').style.display="none";
+				attachVirtualRubik(document.getElementById('canvas1'),configCubes);
+				document.getElementById('canvas1').style.display="block";
+				//console.log(startEndFlag);
+				index=0;
+				pause=true;
+				return;
+			}
 			canvas = document.getElementById("canvas2");
 			ele = document.querySelectorAll(".ele");
 			context = canvas.getContext('2d');
@@ -38,7 +50,8 @@ var startRunning=false;
 						context.textAlign = "center";
 						context.textBaseline = "middle";
 						var code = text.charAt(i);
-						context.fillStyle = "rgba("+parseInt(Math.random()*255)+","+parseInt(Math.random()*255)+","+parseInt(Math.random()*255)+" , 1)";
+						//context.fillStyle = "rgba("+parseInt(Math.random()*255)+","+parseInt(Math.random()*255)+","+parseInt(Math.random()*255)+" , 1)";
+						context.fillStyle="rgba(0,0,0,1)";
 						context.fillText(code , canvas.width/2 - ((text.length/2 -  i)*150) , canvas.height/2);
 						context.restore();
 					}
@@ -48,10 +61,11 @@ var startRunning=false;
 				index < (ele.length-1) ? index++ : startEndFlag=true;
 				if(startEndFlag && !startRunning){
 					startRunning=true;
-					attachVirtualRubik(document.getElementById('canvas1'),configCubes);
-					console.log(startEndFlag);
-				    document.getElementById('canvas1').style.display="block";
  					document.getElementById('canvas2').style.display="none";
+					attachVirtualRubik(document.getElementById('canvas1'),configCubes);
+					document.getElementById('canvas1').style.display="block";
+					//console.log(startEndFlag);
+					index=0;
  					pause=true;
 				}
 				// console.log(index)
@@ -98,7 +112,7 @@ var startRunning=false;
 					context.fillStyle = "rgba(0,0,0,0.1)"
 					context.fillRect(0,0,canvas.width,canvas.height);
 					context.restore();
-				var sulv = 0.1;
+				var sulv = 0.25; // control the speed of animation
 				dots.forEach(function(){
 					var dot = this;
 					if(derection){
