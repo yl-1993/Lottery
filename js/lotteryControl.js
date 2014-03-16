@@ -2,9 +2,29 @@
   var isLottery = false;
   var isRunning=0, isTextChange=0, runningInterval=0, stopingInterval=0;
   var perRotationTime = 4000;
+  var perBlinkTime = 2000;
   var textTimer = 0;
   var textTimeInverval = 100;
   var timerArray=[0];
+
+  function setStopBackground(){
+      localClearInterval();
+      setStopStatus();  
+      addClassName(document.getElementById('res-hundred'),"blink_me");
+      window.setTimeout(function(){
+        removeClassName(document.getElementById('res-hundred'),"blink_me");
+        addClassName(document.getElementById('res-decade'),"blink_me");
+      }, perBlinkTime);
+      window.setTimeout(function(){
+        removeClassName(document.getElementById('res-decade'),"blink_me");
+        addClassName(document.getElementById('res-unit'),"blink_me");
+      }, perBlinkTime*2);
+      window.setTimeout(function(){
+        removeClassName(document.getElementById('res-unit'),"blink_me");
+      }, perBlinkTime*3);
+      //document.getElementById('res-decade').style.lineHeight="2500px"; 
+      //document.getElementById('res-unit').style.lineHeight="2500px"; 
+  }
 
   function changeRunStatus(cmd){
     if(cmd=="Run")
@@ -16,13 +36,11 @@
       var dur = checkTextDuration();
       if(dur>8*textTimeInverval){
         window.setTimeout(function(){
-          localClearInterval();
-          setStopStatus();
+            setStopBackground();
         },dur-8*textTimeInverval);
       }
       else{
-        localClearInterval();
-        setStopStatus();
+        setStopBackground();
       }
     }
     else
@@ -113,6 +131,35 @@
   }
 
 
+  function addClassName(element, className)   
+  {  
+      if (!element) return;  
+      var elementClassName = element.className;  
+      if (elementClassName.length == 0)   
+      {  
+          element.className = elementClassName;  
+          return;  
+      }  
+      if (elementClassName == className || elementClassName.match(new RegExp("(^|\\s)" + className + "(\\s|$)")))   
+          return;  
+      element.className = elementClassName + " " + className;  
+      element.style.color="red";
+  };  
+    
+  function removeClassName(element, className)   
+  {  
+      if (!element) return;  
+      var elementClassName = element.className;  
+      if (elementClassName.length == 0) return;  
+      if(elementClassName == className)  
+      {  
+          element.className = "";  
+          return;  
+      }  
+      element.style.color="black";
+      if (elementClassName.match(new RegExp("(^|\\s)" + className + "(\\s|$)")))  
+          element.className = elementClassName.replace((new RegExp("(^|\\s)" + className + "(\\s|$)"))," ");  
+  };  
 
   document.onkeydown=function(event){
     var e = event || window.event || arguments.callee.caller.arguments[0];

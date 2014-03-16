@@ -1,4 +1,4 @@
-var isStartAnimation=true;
+var isStartAnimation=false;
 var startEndFlag=false;
 var startRunning=false;
 (function(){
