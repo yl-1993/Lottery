@@ -1,3 +1,4 @@
+var randomImageCount = 1;
 (function(){
   var isLottery = false;
   var isRunning=0, isTextChange=0, runningInterval=0, stopingInterval=0;
@@ -10,6 +11,12 @@
   function setStopBackground(){
       localClearInterval();
       setStopStatus();  
+      setResultBlinking();
+      //document.getElementById('res-decade').style.lineHeight="2500px"; 
+      //document.getElementById('res-unit').style.lineHeight="2500px"; 
+  }
+
+  function setResultBlinking(){
       addClassName(document.getElementById('res-hundred'),"blink_me");
       window.setTimeout(function(){
         removeClassName(document.getElementById('res-hundred'),"blink_me");
@@ -22,8 +29,6 @@
       window.setTimeout(function(){
         removeClassName(document.getElementById('res-unit'),"blink_me");
       }, perBlinkTime*3);
-      //document.getElementById('res-decade').style.lineHeight="2500px"; 
-      //document.getElementById('res-unit').style.lineHeight="2500px"; 
   }
 
   function changeRunStatus(cmd){
@@ -84,11 +89,17 @@
     window.clearInterval(isTextChange);
     isTextChange=0;
     var count = perRotationTime*2/textTimeInverval;
-    var remain = (count - textTimer)/2;
+    var remain = (count - textTimer)*textTimeInverval/2;
+    addClassName(document.getElementById('startButton'),"blink_me");
+    window.setTimeout(function(){
+      removeClassName(document.getElementById('startButton'),"blink_me");
+    }, remain);
+    /*
     for(var i = 0; i < 2; i++)
     {
       //setTimeout("setRunningStatus()","textTimeInverval");
       //setRunningStatus();
+      
       runningInterval = window.setInterval(function(){
         setRunningStatus();
       },textTimeInverval-30);
@@ -99,7 +110,8 @@
       timerArray = timerArray.concat(stopingInterval);
       console.log(stopingInterval);
     }
-    return remain*textTimeInverval;
+          */
+    return remain;
   }
 
   function iLottery(){
@@ -137,7 +149,7 @@
       var elementClassName = element.className;  
       if (elementClassName.length == 0)   
       {  
-          element.className = elementClassName;  
+          element.className = className;  
           return;  
       }  
       if (elementClassName == className || elementClassName.match(new RegExp("(^|\\s)" + className + "(\\s|$)")))   
