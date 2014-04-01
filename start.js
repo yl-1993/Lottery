@@ -35,6 +35,10 @@ switch (extname) {
         contentType = 'image/jpeg';
         ifbinary = true;
         break;
+    case '.mp3':
+        contentType = 'audio/mpeg';
+        ifbinary = true;
+        break;
 }
 
 path.exists(filePath, function(exists) {

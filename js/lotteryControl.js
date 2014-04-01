@@ -1,17 +1,24 @@
-var randomImageCount = 1;
+var randomImageCount = 4;
 (function(){
   var isLottery = false;
   var isRunning=0, isTextChange=0, runningInterval=0, stopingInterval=0;
-  var perRotationTime = 4000;
+  var perRotationTime = 2000; // below this value may cause a bug when running too long
   var perBlinkTime = 2000;
   var textTimer = 0;
   var textTimeInverval = 100;
   var timerArray=[0];
+  var indexRes = 0; // the index of results
 
   function setStopBackground(){
       localClearInterval();
-      setStopStatus();  
-      setResultBlinking();
+      setStopStatus(); 
+      window.setTimeout(function(){ 
+         drawResultList();
+      }, 1000);
+      window.setTimeout(function(){ 
+         iResultList();
+      }, 2200);
+      //setResultBlinking();// if you want to blink the result, please active this line
       //document.getElementById('res-decade').style.lineHeight="2500px"; 
       //document.getElementById('res-unit').style.lineHeight="2500px"; 
   }
@@ -31,6 +38,23 @@ var randomImageCount = 1;
       }, perBlinkTime*3);
   }
 
+
+  /**
+  *
+  */
+  function drawResultList(){
+    try {
+        var rubik = document.getElementById('canvas1').virtualrubik;
+        rubik.drawResultList();
+    }
+     catch (e) {
+        // Suppress error message when mouse is released
+        // outside the canvas
+        console.log(e);
+     }
+
+  }
+
   function changeRunStatus(cmd){
     if(cmd=="Run")
     {
@@ -39,14 +63,21 @@ var randomImageCount = 1;
     else if(cmd=="Stop")
     {
       var dur = checkTextDuration();
-      if(dur>8*textTimeInverval){
+      /*
+      if(dur>4*textTimeInverval){
         window.setTimeout(function(){
             setStopBackground();
-        },dur-8*textTimeInverval);
+        },dur);
       }
       else{
         setStopBackground();
-      }
+      }*/
+      if(dur < perRotationTime/2)
+        dur += perRotationTime/2;
+      console.log(dur);
+      window.setTimeout(function(){
+          setStopBackground();
+      },dur);
     }
     else
     {
@@ -58,6 +89,8 @@ var randomImageCount = 1;
       textTimer=0;
       isTextChange = window.setInterval(function(){
         textTimer++;
+        if(textTimer>39)
+          textTimer = 0;
       },textTimeInverval);
   }
 
@@ -71,12 +104,12 @@ var randomImageCount = 1;
   }
 
   function setRunningStatus(){
-    document.getElementById('startButton').style.color="black";
+    document.getElementById('startButton').style.color="red";
     document.getElementById('startButton').innerHTML="RUNNING";
   }
 
   function setStopStatus(){
-    document.getElementById('startButton').style.color="black";
+    document.getElementById('startButton').style.color="red";
     document.getElementById('startButton').innerHTML="STOP";
   }
 
@@ -88,8 +121,11 @@ var randomImageCount = 1;
   function checkTextDuration(){
     window.clearInterval(isTextChange);
     isTextChange=0;
-    var count = perRotationTime*2/textTimeInverval;
-    var remain = (count - textTimer)*textTimeInverval/2;
+    //var count = perRotationTime*2/textTimeInverval;
+    //var remain = (count - textTimer)*textTimeInverval/2;
+    //console.log(remain);
+    var remain = perRotationTime - textTimer*textTimeInverval + textTimeInverval;
+    
     addClassName(document.getElementById('startButton'),"blink_me");
     window.setTimeout(function(){
       removeClassName(document.getElementById('startButton'),"blink_me");
@@ -116,20 +152,20 @@ var randomImageCount = 1;
 
   function iLottery(){
     isLottery = !isLottery;
-    changeRunStatus("Run");
     if(isLottery)
     {
+      changeRunStatus("Run");
       document.getElementById('canvas1').virtualrubik.lottery();
+      setTextTimer();
       isRunning = window.setInterval(function(){
-        document.getElementById('canvas1').virtualrubik.lottery();
-        setTextTimer(); 
+        document.getElementById('canvas1').virtualrubik.lottery(); 
       },perRotationTime); // it take about 4 secs to transform 10 times
     }
     else
     {
-      changeRunStatus("Stop");
       window.clearInterval(isRunning);
       isRunning = 0;
+      changeRunStatus("Stop");
     }
   }
 
@@ -140,6 +176,26 @@ var randomImageCount = 1;
       isRunning=window.clearInterval(isRunning);
     if(isLottery)
       isLottery=!isLottery;
+  }
+
+  function iResultList() {
+     var canvas = document.getElementById("canvas1");
+     var url = canvas.toDataURL();
+     
+     var newImg = document.createElement("img");
+     newImg.src = url;
+     newImg.className = "clipImage";
+     /* //left style
+     newImg.style.top = 180+indexRes*100+"px";
+     newImg.style.marginLeft = (-160 + indexRes*10) + "px";
+     */
+     //right style
+     newImg.style.top = indexRes*100+"px";
+     newImg.style.marginRight = (-200 - indexRes*10) + "px";
+     document.body.appendChild(newImg);
+     indexRes++;
+     if(indexRes > 3) indexRes = 0;
+     console.log(indexRes);
   }
 
 
@@ -168,7 +224,7 @@ var randomImageCount = 1;
           element.className = "";  
           return;  
       }  
-      element.style.color="black";
+      element.style.color="red";
       if (elementClassName.match(new RegExp("(^|\\s)" + className + "(\\s|$)")))  
           element.className = elementClassName.replace((new RegExp("(^|\\s)" + className + "(\\s|$)"))," ");  
   };  

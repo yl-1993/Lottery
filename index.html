@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="audio/mpeg;" />
 <title>iGeek Lottery</title>
 
 <!-- The following two lines are needed to include the Virtual Cube in a web-page. 
@@ -163,7 +163,26 @@
             left: 680px;
             width: 100px;
         }
+        .clipImage{
+            position: absolute;
+            height: 400px;
+            right: 0px;
+            margin-top: -150px;
+            padding: 15px 20px 10px 10px;
+            text-align: center;
+            background: rgba(0, 0, 0, 1);
+            clip: rect(220px, 438px, 288px, 190px); /*rect(top, right, bottom, left)*/
+            cursor: pointer;
+            -webkit-box-shadow: rgba(0, 0, 0, 1) 5px 5px 20px;
+            -moz-box-shadow: rgba(0, 0, 0, 1) 5px 5px 20px;
+            box-shadow: rgba(0, 0, 0, 1) 5px 5px 20px;
+            transition: all 1.6s ease-in 1s;
+            -moz-transition:all 1.6s ease-in 1s; /* Firefox 4 */
+            -webkit-transition:all 1.6s ease-in 1s; /* Safari and Chrome */
+            -o-transition:all .6s ease-in; /* Opera */          
+        }
       </style>
+
 <script type="text/javascript" src="lib/virtualrubik.js"></script>
 <script type="text/javascript">includeVirtualRubik("lib");</script>
 <script type="text/javascript" src="startLottery/startAnimate.js"></script>
@@ -180,6 +199,11 @@
      The alternative image is displayed in the parent DIV-Element, when the browser does not support WebGL. 
 -->
 
+<audio id="music" controls="controls" loop="loop" style="display:none;" autoplay="autoplay">
+  <source src="audio/song.mp3" type="audio/mpeg" />
+Your browser does not support the audio element.
+</audio>
+
 
 
 <canvas id="canvas1" class="virtualrubik" style="border: 1px solid; display: none;background-color:#000;" width="1366" height="775"
@@ -193,18 +217,19 @@
 <!-- The following controls interact with users. -->
   <div id='glasspane' class="glasspane" style="display:none;">
      <h2 class='title'>IGEEK  LOTTERY</h2>
-     <a id='startButton' onclick="iLottery();">START</a>
+     <a id='startButton' onclick="iLottery();" style="color:red">START</a>
   </div>
 
   <div id="res-frame" class="resframe" style="display:none;">
   </div>
+  <!--
   <div id="res-hundred" class="shadelayer hundred" style="display:none;">百
   </div>
     <div id="res-decade" class="shadelayer decade" style="display:none;">十
   </div>
     <div id="res-unit" class="shadelayer unit" style="display:none;">个
   </div>
-
+  -->
 <!-- The following controls interact with the Rubik's Cube in "canvas1". -->
 <div style="display:none;">
   <button type="button" onclick="iRestart();">Restart</button>
@@ -220,6 +245,8 @@
       开始抽奖！
     </div>
   </div>
+
+
 
 
 </body>
