@@ -74,7 +74,7 @@ var randomImageCount = 1;
       }*/
       if(dur < perRotationTime/2)
         dur += perRotationTime/2;
-      console.log(dur);
+      //console.log(dur);
       window.setTimeout(function(){
           setStopBackground();
       },dur);
@@ -195,7 +195,7 @@ var randomImageCount = 1;
      document.body.appendChild(newImg);
      indexRes++;
      if(indexRes > 3) indexRes = 0;
-     console.log(indexRes);
+     //console.log(indexRes);
   }
 
 
