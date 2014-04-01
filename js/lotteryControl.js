@@ -1,4 +1,4 @@
-var randomImageCount = 4;
+var randomImageCount = 1;
 (function(){
   var isLottery = false;
   var isRunning=0, isTextChange=0, runningInterval=0, stopingInterval=0;
