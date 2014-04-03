@@ -57,6 +57,7 @@
 
          .glasspane .title {
             font-size: 2em;
+            color: white;
             color:# rgba(255, 255, 0, 0.8);
          }
 
@@ -112,7 +113,44 @@
             50% { opacity: 0.0; }
             100% { opacity: 1.0; }
         }
-
+         .star{
+            position: absolute;
+            text-align: center;
+         }
+         .star_0{
+            left: 980px;
+            top: 50px;
+         }
+         .star_1{
+            left: 285px;
+            top: 20px;
+         }
+         .star_2{
+            left: 980px;
+            top: 200px;
+         }
+         .star_3{
+            left: 980px;
+            top: 350px;
+         }
+         .star_4{
+            left: 00px;
+            top: 480px;
+            width: 160px
+         }
+         .star_5{
+            left: 100px;
+            top: 620px;
+            width: 180px
+         }
+         .star_6{
+            left: 600px;
+            top: 700px;
+         }
+         .star_3{
+            left: 980px;
+            top: 500px;
+         }
          .resframe {
             position: absolute;
             left: 356px;
@@ -130,6 +168,28 @@
             -webkit-box-shadow: rgba(255, 255, 255,0.5) 5px 5px 20px;
             -moz-box-shadow: rgba(255, 255, 255,0.5) 5px 5px 20px;
             box-shadow: rgba(255, 255, 255,0.5) 5px 5px 20px;
+         }
+         .resNumLayer{
+            position: absolute;
+            height: 80px;
+            left: 20px;
+            top: 220px;
+            font-size:10px;
+            width:6em;
+            height:12em;
+            border:1px solid #ddd;
+            padding: 15px 20px 10px 10px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.2);
+            color:# #eeeeee;
+            cursor: pointer;
+            -webkit-box-shadow: rgba(255, 255, 255,0.5) 5px 5px 20px;
+            -moz-box-shadow: rgba(255, 255, 255,0.5) 5px 5px 20px;
+            box-shadow: rgba(255, 255, 255,0.5) 5px 5px 20px;
+            transition: all 1.6s ease-in 1s;
+            -moz-transition:all 1.6s ease-in 1s; /* Firefox 4 */
+            -webkit-transition:all 1.6s ease-in 1s; /* Safari and Chrome */
+            -o-transition:all .6s ease-in; /* Opera */          
          }
         .shadelayer{
             position: absolute;
@@ -182,7 +242,46 @@
             -o-transition:all .6s ease-in; /* Opera */          
         }
       </style>
+<style type="text/css">
 
+.liquidCrystal{
+  font-size:10px;
+  width:6em;
+  height:12em;
+  border:1px solid #ddd;
+}
+.liquidCrystal div{position: absolute;border-style:solid;}
+.liquidCrystal .l,.liquidCrystal .r,.liquidCrystal .u,.liquidCrystal .d{width:0;height:0;overflow:hidden;}
+
+.liquidCrystal .v{width:0;height:5em;border-width:0 0.5em;border-color:#FF0000;}
+.liquidCrystal .v .u{border-style:dotted dotted solid dotted;border-width:0 0.5em 0.5em;border-color:transparent transparent #FF0000 transparent;top:-0.5em;left:-0.5em;}
+.liquidCrystal .v .d{border-style:solid dotted dotted dotted;border-width:0.5em 0.5em 0 0.5em;border-color:#FF0000 transparent transparent transparent;left:-0.5em;bottom:-0.5em}
+
+.liquidCrystal .h{width:5.5em;height:0;border-width:0.5em 0;border-color:#FF0000;}
+.liquidCrystal .h .l{border-style:dotted solid dotted dotted;border-width:0.5em 0.5em 0.5em 0;border-color:transparent #FF0000 transparent transparent;top:-0.5em;left:-0.5em;}
+.liquidCrystal .h .r{border-style:dotted dotted dotted solid;border-width:0.5em 0 0.5em 0.5em;border-color:transparent transparent transparent #FF0000;top:-0.5em;right:-0.5em;}
+
+.liquidCrystal .n1{left:0.5em;top:1.5em;}
+.liquidCrystal .n2{left:0.5em;top:7.5em;}
+.liquidCrystal .n4{left:7.5em;top:7.5em;}
+.liquidCrystal .n5{left:7.5em;top:1.5em;}
+
+.liquidCrystal .n6{top:0.4em;left:1.8em;}
+.liquidCrystal .n3{top:12.5em;left:1.8em;}
+.liquidCrystal .n7{top:6.5em;left:1.8em;}
+
+.c1 .n1,.c1 .n2,.c1 .n3,.c1 .n6,.c1 .n7{display:none}
+.c2 .n1,.c2 .n4{display:none}
+.c3 .n1,.c3 .n2{display:none}
+.c4 .n2,.c4 .n3,.c4 .n6{display:none}
+.c5 .n2,.c5 .n5{display:none}
+.c6 .n5{display:none}
+.c7 .n1,.c7 .n2,.c7 .n3,.c7 .n7{display:none}
+.c8{}
+.c9 .n2{display:none}
+.c0 .n7{display:none}
+
+</style>
 <script type="text/javascript" src="lib/virtualrubik.js"></script>
 <script type="text/javascript">includeVirtualRubik("lib");</script>
 <script type="text/javascript" src="startLottery/startAnimate.js"></script>
@@ -217,7 +316,7 @@ Your browser does not support the audio element.
 <!-- The following controls interact with users. -->
   <div id='glasspane' class="glasspane" style="display:none;">
      <h2 class='title'>IGEEK  LOTTERY</h2>
-     <a id='startButton' onclick="iLottery();" style="color:red">START</a>
+     <a id='startButton' onclick="iLottery();" style="color:yellow">START</a>
   </div>
 
   <div id="res-frame" class="resframe" style="display:none;">
@@ -246,6 +345,47 @@ Your browser does not support the audio element.
     </div>
   </div>
 
+  <img src="images/star_0.gif" class="star star_0"/>
+  <img src="images/star_0.gif" class="star star_2"/>
+  <img src="images/star_0.gif" class="star star_3"/>
+  <img src="images/star_0.gif" class="star star_4"/>
+  <img src="images/star_0.gif" class="star star_7"/>
+
+  <img src="images/star_1.gif" class="star star_1"/>
+
+  <img src="images/star_2.gif" class="star star_6"/>
+  <img src="images/star_3.gif" class="star star_5"/>
+  <img src="images/star_4.jpg" class="star star_4"/>
+
+  
+
+<div id="resNumUnit" class="resNumLayer" style="display:block;left:220px;">
+    <div class="v n1"><div class="u"></div><div class="d"></div></div>
+    <div class="v n2"><div class="u"></div><div class="d"></div></div>
+    <div class="h n3"><div class="l"></div><div class="r"></div></div>
+    <div class="v n4"><div class="u"></div><div class="d"></div></div>
+    <div class="v n5"><div class="u"></div><div class="d"></div></div>
+    <div class="h n6"><div class="l"></div><div class="r"></div></div>
+    <div class="h n7"><div class="l"></div><div class="r"></div></div>
+</div>
+<div id="resNumDecade" class="resNumLayer" style="display:block;left:120px;">
+    <div class="v n1"><div class="u"></div><div class="d"></div></div>
+    <div class="v n2"><div class="u"></div><div class="d"></div></div>
+    <div class="h n3"><div class="l"></div><div class="r"></div></div>
+    <div class="v n4"><div class="u"></div><div class="d"></div></div>
+    <div class="v n5"><div class="u"></div><div class="d"></div></div>
+    <div class="h n6"><div class="l"></div><div class="r"></div></div>
+    <div class="h n7"><div class="l"></div><div class="r"></div></div>
+</div>
+<div id="resNumHundred" class="resNumLayer" style="display:block">
+    <div class="v n1"><div class="u"></div><div class="d"></div></div>
+    <div class="v n2"><div class="u"></div><div class="d"></div></div>
+    <div class="h n3"><div class="l"></div><div class="r"></div></div>
+    <div class="v n4"><div class="u"></div><div class="d"></div></div>
+    <div class="v n5"><div class="u"></div><div class="d"></div></div>
+    <div class="h n6"><div class="l"></div><div class="r"></div></div>
+    <div class="h n7"><div class="l"></div><div class="r"></div></div>
+</div>
 
 
 

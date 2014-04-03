@@ -8,16 +8,19 @@ var randomImageCount = 1;
   var textTimeInverval = 100;
   var timerArray=[0];
   var indexRes = 0; // the index of results
+  var countScramble = 0;
 
   function setStopBackground(){
       localClearInterval();
       setStopStatus(); 
       window.setTimeout(function(){ 
          drawResultList();
-      }, 1000);
+      }, 1200);
+      /*
       window.setTimeout(function(){ 
          iResultList();
       }, 2200);
+      */
       //setResultBlinking();// if you want to blink the result, please active this line
       //document.getElementById('res-decade').style.lineHeight="2500px"; 
       //document.getElementById('res-unit').style.lineHeight="2500px"; 
@@ -45,7 +48,21 @@ var randomImageCount = 1;
   function drawResultList(){
     try {
         var rubik = document.getElementById('canvas1').virtualrubik;
-        rubik.drawResultList();
+        var res = rubik.drawResultList();
+        //console.log(res);
+        var resDiv = document.getElementById("resNumUnit");
+        resDiv.className = "resNumLayer liquidCrystal c"+res['unit'];
+        resDiv.style.left = 220 + "px";
+        resDiv.style.display = "block";
+        //decade
+        resDiv = document.getElementById("resNumDecade");
+        resDiv.className = "resNumLayer liquidCrystal c"+res['decade'];
+        resDiv.style.left = 120 + "px";
+        resDiv.style.display = "block";
+        //hundred
+        resDiv = document.getElementById("resNumHundred");
+        resDiv.className = "resNumLayer liquidCrystal c"+res['hundred'];
+        resDiv.style.display = "block";
     }
      catch (e) {
         // Suppress error message when mouse is released
@@ -72,9 +89,13 @@ var randomImageCount = 1;
       else{
         setStopBackground();
       }*/
-      if(dur < perRotationTime/2)
-        dur += perRotationTime/2;
-      //console.log(dur);
+      console.log(dur);
+      if(isRunning != 0){
+        dur += 2000;
+        console.log('error');
+      }
+      
+      console.log(isRunning);
       window.setTimeout(function(){
           setStopBackground();
       },dur);
@@ -89,27 +110,27 @@ var randomImageCount = 1;
       textTimer=0;
       isTextChange = window.setInterval(function(){
         textTimer++;
-        if(textTimer>39)
+        if(textTimer>19)
           textTimer = 0;
       },textTimeInverval);
   }
 
   function localClearInterval(){
-    window.clearInterval(isTextChange);
+    //window.clearInterval(isTextChange);
     for(var i=0; i<timerArray.length; i++)
       window.clearInterval(timerArray[i]);
-    isTextChange=0;
+    //isTextChange=0;
     runningInterval=0;
     stopingInterval=0;
   }
 
   function setRunningStatus(){
-    document.getElementById('startButton').style.color="red";
+    document.getElementById('startButton').style.color="yellow";
     document.getElementById('startButton').innerHTML="RUNNING";
   }
 
   function setStopStatus(){
-    document.getElementById('startButton').style.color="red";
+    document.getElementById('startButton').style.color="yellow";
     document.getElementById('startButton').innerHTML="STOP";
   }
 
@@ -125,7 +146,14 @@ var randomImageCount = 1;
     //var remain = (count - textTimer)*textTimeInverval/2;
     //console.log(remain);
     var remain = perRotationTime - textTimer*textTimeInverval + textTimeInverval;
-    
+    console.log(remain);
+    if(remain == perRotationTime)
+      remain += perRotationTime;
+    if(remain < 0)
+      remain  = 2*perRotationTime;
+    if(remain < perRotationTime/2)
+        remain = perRotationTime;
+    remain += 500;
     addClassName(document.getElementById('startButton'),"blink_me");
     window.setTimeout(function(){
       removeClassName(document.getElementById('startButton'),"blink_me");
@@ -154,12 +182,20 @@ var randomImageCount = 1;
     isLottery = !isLottery;
     if(isLottery)
     {
+      if(isRunning != 0) return;
       changeRunStatus("Run");
       document.getElementById('canvas1').virtualrubik.lottery();
       setTextTimer();
       isRunning = window.setInterval(function(){
+        /*
+        if(countScramble == 5){
+          countScramble = 0;
+          return;
+        }
+        countScramble++;
+        */
         document.getElementById('canvas1').virtualrubik.lottery(); 
-      },perRotationTime); // it take about 4 secs to transform 10 times
+      },perRotationTime); // it take about 2 secs to transform 10 times
     }
     else
     {
