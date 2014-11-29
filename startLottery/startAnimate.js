@@ -85,7 +85,7 @@ var startRunning=false;
 					document.getElementById('resNumHundred').style.left = 30 + 60 + 'px';
 					document.getElementById('res-frame').style.left = 360 + 60 + 'px';
 				}
-				else if(screenScalar > 1.77){ // 1920 * 1080
+				else if(screenScalar > 2.0){ // 1920 * 1080
 					document.getElementById('glasspane').style.left = 50 + (1920 - 1366)/2 + 140 + 'px';
 					document.getElementById('resNumUnit').style.left = 190 + (1920 - 1366)/2 + 140 + 'px';
 					document.getElementById('resNumDecade').style.left = 110 + (1920 - 1366)/2 + 140 + 'px';
