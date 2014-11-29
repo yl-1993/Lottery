@@ -6,6 +6,6 @@ Mahjong Lottery
 <pre> node start.js</pre>
 
 Start:		"Enter"  
-Stop:		"Enter" 
-Restart:	"Enter"
-Reset:		"Space"
+Stop:		"Enter"   
+Restart:	"Enter"  
+Reset:		"Space"  
