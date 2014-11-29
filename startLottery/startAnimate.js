@@ -22,7 +22,7 @@ var startRunning=false;
 			eachEle();
 			
 			function eachEle(){
-				dr = 3;
+				dr = 4;
 				if(ele[index].getAttribute('data-dr')!==null){
 					dr = parseInt(ele[index].getAttribute('data-dr'))
 				}
@@ -63,10 +63,49 @@ var startRunning=false;
 			function startMagicCube(){
 				startRunning=true;
 				document.getElementById('canvas2').style.display="none";
-				attachVirtualRubik(document.getElementById('canvas1'),configCubes);
+				para = [];
+				var screenScalar = document.documentElement.clientWidth/document.documentElement.clientHeight;
+				console.log(screenScalar);
+				// point the screen resolution
+				// 'para' is useless for the time being
+				para.pointedWidth = 1024;
+				para.pointedHeight = 768;
+				// change resolution
+				if(screenScalar > 3){ // 1366 * 768
+					document.getElementById('glasspane').style.left = 50 + 60 + 'px';
+					document.getElementById('resNumUnit').style.left = 190 + 60 + 'px';
+					document.getElementById('resNumDecade').style.left = 110 + 60 + 'px';
+					document.getElementById('resNumHundred').style.left = 30 + 60 + 'px';
+					document.getElementById('res-frame').style.left = 360 + 'px';
+				}
+				else if(screenScalar > 2.3){ // 1366 * 768
+					document.getElementById('glasspane').style.left = 50 + 60 + 'px';
+					document.getElementById('resNumUnit').style.left = 190 + 60 + 'px';
+					document.getElementById('resNumDecade').style.left = 110 + 60 + 'px';
+					document.getElementById('resNumHundred').style.left = 30 + 60 + 'px';
+					document.getElementById('res-frame').style.left = 360 + 60 + 'px';
+				}
+				else if(screenScalar > 1.77){ // 1920 * 1080
+					document.getElementById('glasspane').style.left = 50 + (1920 - 1366)/2 + 140 + 'px';
+					document.getElementById('resNumUnit').style.left = 190 + (1920 - 1366)/2 + 140 + 'px';
+					document.getElementById('resNumDecade').style.left = 110 + (1920 - 1366)/2 + 140 + 'px';
+					document.getElementById('resNumHundred').style.left = 30 + (1920 - 1366)/2 + 140 + 'px';
+					document.getElementById('res-frame').style.left = 325 + (1920 - 1366)/2 + 140 + 'px';
+				}
+				else{ // 1024 * 768
+
+				}
+				// initialize cubic
+				attachVirtualRubik(document.getElementById('canvas1'), para, configCubes);
 				document.getElementById('canvas1').style.display="block";
 				document.getElementById('glasspane').style.display="block";
 				document.getElementById('res-frame').style.display="block";
+				// for (var i = 0; i < 9; i++) {
+				// 	document.getElementById('star_'+i).style.display="block";
+				// };
+				document.getElementById('resNumUnit').style.display="block";
+				document.getElementById('resNumDecade').style.display="block";
+				document.getElementById('resNumHundred').style.display="block";
 				//document.getElementById('res-hundred').style.display="block";
 				//document.getElementById('res-decade').style.display="block";
 				//document.getElementById('res-unit').style.display="block";

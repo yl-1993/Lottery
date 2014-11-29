@@ -1,6 +1,7 @@
 var randomImageCount = 1;
 (function(){
   var isLottery = false;
+  var nLottery = 0;
   var isRunning=0, isTextChange=0, runningInterval=0, stopingInterval=0;
   var perRotationTime = 2000; // below this value may cause a bug when running too long
   var perBlinkTime = 2000;
@@ -52,12 +53,12 @@ var randomImageCount = 1;
         //console.log(res);
         var resDiv = document.getElementById("resNumUnit");
         resDiv.className = "resNumLayer liquidCrystal c"+res['unit'];
-        resDiv.style.left = 220 + "px";
+        //resDiv.style.left = 190 + "px";
         resDiv.style.display = "block";
         //decade
         resDiv = document.getElementById("resNumDecade");
         resDiv.className = "resNumLayer liquidCrystal c"+res['decade'];
-        resDiv.style.left = 120 + "px";
+        //resDiv.style.left = 110 + "px";
         resDiv.style.display = "block";
         //hundred
         resDiv = document.getElementById("resNumHundred");
@@ -182,6 +183,12 @@ var randomImageCount = 1;
     isLottery = !isLottery;
     if(isLottery)
     {
+      if(nLottery > 0){
+        //fresh
+        window.location.reload();
+        return;
+      }
+      nLottery = nLottery + 1;
       if(isRunning != 0) return;
       changeRunStatus("Run");
       document.getElementById('canvas1').virtualrubik.lottery();

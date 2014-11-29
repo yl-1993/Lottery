@@ -1,0 +1,274 @@
+      body{
+        padding:0;
+        margin:0;
+        overflow: hidden;
+        background-color: #000;
+      }
+    #canvas1{
+      display: block;
+      margin:auto;
+    }
+    #canvas2{
+      display: block;
+      margin:auto;
+    }
+    #canvas-wrap { position:relative } /* Make this a positioned parent */
+    #overlay{
+     position:absolute; 
+     top:20px; 
+     left:30px;
+   }
+  </style>
+        <style>
+         body {
+            background: #dddddd;
+         }
+
+         .glasspane {
+            position: absolute;
+            left: 50px;
+            top: 50px;
+            width: 160px; 
+            padding: 0px 10px 10px 10px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.3);
+            border: thin solid rgba(0, 0, 0, 0.6);
+            color:# #eeeeee;
+            font-family: Droid Sans, Arial, Helvetica, sans-serif;
+            font-size: 10px;
+            cursor: pointer;
+            -webkit-box-shadow: rgba(0,0,0,0.5) 5px 5px 20px;
+            -moz-box-shadow: rgba(0,0,0,0.5) 5px 5px 20px;
+            box-shadow: rgba(0,0,0,0.5) 5px 5px 20px;
+         }
+
+         .glasspane h2 {
+            font-weight: normal;
+         }
+
+         .glasspane .title {
+            font-size: 2em;
+            color: white;
+            color:# rgba(255, 255, 0, 0.8);
+         }
+
+         .glasspane a:hover {
+            color:# yellow;
+         }
+
+         .glasspane a {
+            text-decoration: none;
+            color:# #cccccc;
+            font-size: 3.5em;
+         }
+
+         .glasspane p {
+            margin: 10px;
+            color:# rgba(65, 65, 220, 1.0);
+            font-size: 12pt;
+            font-family: Palatino, Arial, Helvetica, sans-serif;
+         }
+
+         
+        .blink_me {
+            -webkit-animation-name: blinker;
+            -webkit-animation-duration: 1s;
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-iteration-count: infinite;
+
+            -moz-animation-name: blinker;
+            -moz-animation-duration: 1s;
+            -moz-animation-timing-function: linear;
+            -moz-animation-iteration-count: infinite;
+
+            animation-name: blinker;
+            animation-duration: 1s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        @-moz-keyframes blinker {  
+            0% { opacity: 1.0; }
+            50% { opacity: 0.0; }
+            100% { opacity: 1.0; }
+        }
+
+        @-webkit-keyframes blinker {  
+            0% { opacity: 1.0; }
+            50% { opacity: 0.0; }
+            100% { opacity: 1.0; }
+        }
+
+        @keyframes blinker {  
+            0% { opacity: 1.0; }
+            50% { opacity: 0.0; }
+            100% { opacity: 1.0; }
+        }
+         .star{
+            position: absolute;
+            text-align: center;
+         }
+         .star_0{
+            left: 880px;
+            top: 50px;
+         }
+         .star_1{
+            left: 245px;
+            top: 20px;
+         }
+         .star_2{
+            left: 880px;
+            top: 200px;
+         }
+         .star_3{
+            left: 880px
+            top: 350px;
+         }
+         .star_4{
+            left: 0px;
+            top: 620px;
+            width: 160px
+         }
+         .star_5{
+            left: 100px;
+            top: 620px;
+            width: 180px
+         }
+         .star_6{
+            left: 540px;
+            top: 700px;
+         }
+         .star_7{
+            left: 880px;
+            top: 500px;
+         }
+         .star_8{
+            left: 0px;
+            top: 520px;
+         }
+         .resframe {
+            position: absolute;
+            left: 355px;
+            top: 280px;
+            width: 350px;
+            height: 120px;
+            padding: 0px 20px 10px 10px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: 6px solid rgba(255, 0, 0, 0.8);
+            color:# #eeeeee;
+            font-family: Droid Sans, Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            cursor: pointer;
+            -webkit-box-shadow: rgba(255, 255, 255,0.5) 5px 5px 20px;
+            -moz-box-shadow: rgba(255, 255, 255,0.5) 5px 5px 20px;
+            box-shadow: rgba(255, 255, 255,0.5) 5px 5px 20px;
+         }
+         .resNumLayer{
+            position: absolute;
+            height: 80px;
+            left: 30px;
+            top: 200px;
+            font-size:8px;
+            width:5em;
+            height:13em;
+            border:1px solid #ddd;
+            padding: 15px 20px 10px 10px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.2);
+            color:# #eeeeee;
+            cursor: pointer;
+            -webkit-box-shadow: rgba(255, 255, 255,0.5) 5px 5px 20px;
+            -moz-box-shadow: rgba(255, 255, 255,0.5) 5px 5px 20px;
+            box-shadow: rgba(255, 255, 255,0.5) 5px 5px 20px;
+            transition: all 1.6s ease-in 1s;
+            -moz-transition:all 1.6s ease-in 1s; /* Firefox 4 */
+            -webkit-transition:all 1.6s ease-in 1s; /* Safari and Chrome */
+            -o-transition:all .6s ease-in; /* Opera */          
+         }
+        .shadelayer{
+            position: absolute;
+            height: 90px;
+            top: 410px;
+            padding: 15px 20px 10px 10px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.4);
+            border: 0px solid rgba(255, 255, 255, 0.6);
+            color:# #eeeeee;
+            font-family: Droid Sans, Arial, Helvetica, sans-serif;
+            font-size: 5em;
+            cursor: pointer;
+            -webkit-box-shadow: rgba(255, 255, 255,0.5) 5px 5px 20px;
+            -moz-box-shadow: rgba(255, 255, 255,0.5) 5px 5px 20px;
+            box-shadow: rgba(255, 255, 255,0.5) 5px 5px 20px;
+            transition: all 1.6s ease-in 1s;
+            -moz-transition:all 1.6s ease-in 1s; /* Firefox 4 */
+            -webkit-transition:all 1.6s ease-in 1s; /* Safari and Chrome */
+            -o-transition:all .6s ease-in; /* Opera */
+        }
+        .hundred{
+            left: 400px;
+            width: 100px;
+        }
+        .decade{
+            left: 540px;
+            width: 100px;
+        }
+        .unit{
+            left: 680px;
+            width: 100px;
+        }
+        .clipImage{
+            position: absolute;
+            height: 400px;
+            right: 0px;
+            margin-top: -150px;
+            padding: 15px 20px 10px 10px;
+            text-align: center;
+            background: rgba(0, 0, 0, 1);
+            clip: rect(220px, 438px, 288px, 190px); /*rect(top, right, bottom, left)*/
+            cursor: pointer;
+            -webkit-box-shadow: rgba(0, 0, 0, 1) 5px 5px 20px;
+            -moz-box-shadow: rgba(0, 0, 0, 1) 5px 5px 20px;
+            box-shadow: rgba(0, 0, 0, 1) 5px 5px 20px;
+            transition: all 1.6s ease-in 1s;
+            -moz-transition:all 1.6s ease-in 1s; /* Firefox 4 */
+            -webkit-transition:all 1.6s ease-in 1s; /* Safari and Chrome */
+            -o-transition:all .6s ease-in; /* Opera */          
+        }
+.liquidCrystal{
+  font-size:8px;
+  width:5em;
+  height:13em;
+  border:1px solid #ddd;
+}
+.liquidCrystal div{position: absolute;border-style:solid;}
+.liquidCrystal .l,.liquidCrystal .r,.liquidCrystal .u,.liquidCrystal .d{width:0;height:0;overflow:hidden;}
+
+.liquidCrystal .v{width:0;height:5em;border-width:0 0.5em;border-color:#FF0000;}
+.liquidCrystal .v .u{border-style:dotted dotted solid dotted;border-width:0 0.5em 0.5em;border-color:transparent transparent #FF0000 transparent;top:-0.5em;left:-0.5em;}
+.liquidCrystal .v .d{border-style:solid dotted dotted dotted;border-width:0.5em 0.5em 0 0.5em;border-color:#FF0000 transparent transparent transparent;left:-0.5em;bottom:-0.5em}
+
+.liquidCrystal .h{width:5.5em;height:0;border-width:0.5em 0;border-color:#FF0000;}
+.liquidCrystal .h .l{border-style:dotted solid dotted dotted;border-width:0.5em 0.5em 0.5em 0;border-color:transparent #FF0000 transparent transparent;top:-0.5em;left:-0.5em;}
+.liquidCrystal .h .r{border-style:dotted dotted dotted solid;border-width:0.5em 0 0.5em 0.5em;border-color:transparent transparent transparent #FF0000;top:-0.5em;right:-0.5em;}
+
+.liquidCrystal .n1{left:0.5em;top:1.5em;}
+.liquidCrystal .n2{left:0.5em;top:7.5em;}
+.liquidCrystal .n4{left:7.5em;top:7.5em;}
+.liquidCrystal .n5{left:7.5em;top:1.5em;}
+
+.liquidCrystal .n6{top:0.4em;left:1.8em;}
+.liquidCrystal .n3{top:12.5em;left:1.8em;}
+.liquidCrystal .n7{top:6.5em;left:1.8em;}
+
+.c1 .n1,.c1 .n2,.c1 .n3,.c1 .n6,.c1 .n7{display:none}
+.c2 .n1,.c2 .n4{display:none}
+.c3 .n1,.c3 .n2{display:none}
+.c4 .n2,.c4 .n3,.c4 .n6{display:none}
+.c5 .n2,.c5 .n5{display:none}
+.c6 .n5{display:none}
+.c7 .n1,.c7 .n2,.c7 .n3,.c7 .n7{display:none}
+.c8{}
+.c9 .n2{display:none}
+.c0 .n7{display:none}
