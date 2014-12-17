@@ -1,7 +1,9 @@
 Mahjong Lottery
 ==========
 
- run in Firefox by nodejs
+<a href="http://www.yanglei.me/project/lottery">Demo</a>
+
+Local: run in Firefox by nodejs
 
 <pre> node start.js</pre>
 
